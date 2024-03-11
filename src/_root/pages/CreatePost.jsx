@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
+
 import { useForm } from "react-hook-form";
 
 import {
@@ -10,11 +13,16 @@ import {
 } from "@material-tailwind/react";
 
 import { TrashIcon } from "@heroicons/react/24/solid";
+import { UplaodFile } from "../../utils/UplaodFilesFireBase";
+import useAuth from "../../hooks/useAuth";
+import { api } from "../../api/axios";
 
 export default function CreatePost() {
   // States
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
+  const[loading , setLoading] = useState(false);
+
 
   // React Hook Form
   const {
@@ -22,6 +30,14 @@ export default function CreatePost() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+
+  //Use Auth For Get User Data
+  const user = useAuth().getFromLocalStorage();
+  // console.log(user);
+
+  // navigate Hook from React Router Hook
+  const navigate = useNavigate();
 
   // Handle Upload
   const handleUpload = (files) => {
@@ -34,8 +50,36 @@ export default function CreatePost() {
     setFileDataURL(null);
   };
 
-  const submit = (data) => {
-    console.log(data);
+  const submit = async (data) => {
+    setLoading(true)
+    // console.log({data , file});
+    let UploadedImageURL;
+    if(file){
+      UploadedImageURL = await UplaodFile(file);
+      console.log(UploadedImageURL);
+    }
+
+    const postPostData=async()=>{
+      setLoading(true)
+
+      try {
+        const post = await api.post("post",{
+          description:data.description,
+          payload:UploadedImageURL,
+          user:user._id
+        })
+
+        // console.log(post);
+        setLoading(false);
+        if(post.status === 201) navigate("/")
+      } catch (error) {
+        setLoading(false);
+        console.log(error);
+      }
+
+    }
+
+    postPostData()
   };
 
   // Use Effect
@@ -138,12 +182,13 @@ export default function CreatePost() {
                 </div>
               )}
 
-              <button
+              <Button
+              loading={loading}
                 type="submit"
-                className="bg-secondary text-white p-2 rounded-md"
+                className="bg-secondary text-white p-3 rounded-md font-bold"
               >
                 Create Post
-              </button>
+              </Button>
             </form>
           </div>
         </div>

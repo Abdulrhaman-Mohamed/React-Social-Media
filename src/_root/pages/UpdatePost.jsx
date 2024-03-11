@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
-import { useParams } from 'react-router-dom';
+import { useParams ,useNavigate} from 'react-router-dom';
+
 
 import {api} from '../../api/axios'
 
@@ -15,6 +16,7 @@ import {
 } from "@material-tailwind/react";
 
 import { TrashIcon } from "@heroicons/react/24/solid";
+import { UplaodFile } from '../../utils/UplaodFilesFireBase';
 
 export default function UpdatePost() {
   // States
@@ -22,12 +24,15 @@ export default function UpdatePost() {
     description:"",
     payload:""
   });
+  const [file, setFile] = useState(null);
+  const[loading , setLoading] = useState(false);
 
-    const [file, setFile] = useState(null);
-    const [fileDataURL, setFileDataURL] = useState(null);
 
 
   const {id} = useParams();
+
+    // navigate Hook from React Router Hook
+    const navigate = useNavigate();
 
 
 
@@ -69,8 +74,43 @@ export default function UpdatePost() {
 
 
     //handlers
-    const submit = () => {
-      console.log(post);
+    const submit = async () => {
+      // console.log("Update .....");
+      // console.log(file);
+      setLoading(true)
+      let UploadedImageURL="";
+      if(file){
+        
+        UploadedImageURL = await UplaodFile(file);
+        // setPost({...post , payload:UploadedImageURL})
+        console.log(UploadedImageURL);
+      }
+
+
+      if(post.description){
+        const updatePost =async()=>{
+          setLoading(true)
+          try {
+            let updated;
+            if(UploadedImageURL){
+               updated = await api.put(`post/${post._id}`,{...post,payload:UploadedImageURL})
+            }else{
+              updated =await api.put(`post/${post._id}`,post)
+            }
+
+            setLoading(false);
+            if(updated.status === 200) navigate("/")
+
+          } catch (error) {
+            setLoading(false);
+            console.log(error);
+          }
+        }
+
+        updatePost()
+      }
+
+      // console.log(post);
     };
 
 
@@ -179,12 +219,14 @@ export default function UpdatePost() {
                 </div>
                )} 
 
-              <button
+              <Button
+
+              loading={loading}
                 type="submit"
-                className="bg-secondary text-white p-2 rounded-md"
+                className="bg-secondary text-white p-3 rounded-md font-bold"
               >
                 Update Post
-              </button>
+              </Button>
             </form>
           </div>
         </div>

@@ -64,7 +64,7 @@ import useAuth from '../hooks/useAuth';
 
   function ProfileMenu() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const { removeToken } = useAuth()
+    const { removeToken ,getFromLocalStorage } = useAuth()
    
     const closeMenu = () => setIsMenuOpen(false);
    
