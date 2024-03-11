@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body
+{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+label
+{
+    color: white;
+}
