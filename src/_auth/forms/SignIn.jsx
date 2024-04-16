@@ -103,7 +103,7 @@ export default function SignIn() {
       <div className=" flex bg-secondary bg-opacity-80 h-screen overflow-hidden justify-center gap-4 ">
         <div className=" w-full h-full md:w-1/2 flex items-center justify-center m-auto ">
 
-        <form action="" onSubmit={handleSubmit(onSubmit)} className="text-white md:bg-[#ffffff00] w-4/5 md:text-black  h-1/2  m-auto rounded p-4 flex flex-col">
+        <form action="" onSubmit={handleSubmit(onSubmit)} className=" md:bg-[#ffffff00] w-4/5 md:text-black  h-1/2  m-auto rounded p-4 flex flex-col md:justify-center gap-2">
             <h1 className=" font-bold text-4xl w-11/12 m-auto text-white">Welcome back! </h1>
             <div className=" w-11/12 m-auto">
                 <label htmlFor="email" className=" block mb-1">Email</label>

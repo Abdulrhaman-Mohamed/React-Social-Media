@@ -80,7 +80,7 @@ export default function SignUp() {
           <form
             action=""
             onSubmit={handleSubmit(onSubmit)}
-            className="text-white  md:text-black  m-auto rounded p-4 w-4/5 flex flex-col gap-3"
+            className="  md:text-black  m-auto rounded p-4 w-4/5 flex flex-col gap-3"
           >
             <div className="mb-4">
               <Typography variant="h4" color="white" className="w-11/12 m-auto">
