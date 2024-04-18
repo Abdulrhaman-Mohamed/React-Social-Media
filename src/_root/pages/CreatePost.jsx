@@ -16,13 +16,24 @@ import { TrashIcon } from "@heroicons/react/24/solid";
 import { UplaodFile } from "../../utils/UplaodFilesFireBase";
 import useAuth from "../../hooks/useAuth";
 import { api } from "../../api/axios";
+import { useDispatch } from "react-redux";
+import { add_update_Post } from "../../feature/post/postSlice";
 
 export default function CreatePost() {
   // States
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
   const[loading , setLoading] = useState(false);
+  const{getFromLocalStorage} = useAuth();
 
+
+
+  //dispatch
+  const dispatch = useDispatch();
+
+  //userData
+  const userData = getFromLocalStorage();
+  console.log(userData);
 
   // React Hook Form
   const {
@@ -71,7 +82,12 @@ export default function CreatePost() {
 
         // console.log(post);
         setLoading(false);
-        if(post.status === 201) navigate("/")
+        //dispatch add post
+        // dispatch(addPost())
+        if(post.status === 201){
+          dispatch(add_update_Post({...post.data.post, user:{username:user.username, _id:user._id}}))
+          navigate("/")
+        } 
       } catch (error) {
         setLoading(false);
         console.log(error);

@@ -17,16 +17,33 @@ import {
 
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { UplaodFile } from '../../utils/UplaodFilesFireBase';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function UpdatePost() {
   // States
-  const[post , setPost] =useState({
-    description:"",
-    payload:""
-  });
+  const postRedux = useSelector(state => state.selectedPost);
+  const[post , setPost] =useState(postRedux);
   const [file, setFile] = useState(null);
   const[loading , setLoading] = useState(false);
 
+
+
+// console.log(post);
+
+// {
+//   createdDate
+// : 
+// "2024-04-18T10:16:54.768Z"
+// description
+// : 
+// "test2"
+// user
+// : 
+// {_id: '661e60e01557b6b4ae2a0802', username: 'Abdelrhamam204'}
+// _id
+// : 
+// "6620f3164d3bed81cd9a4e12"
+// }
 
 
   const {id} = useParams();
@@ -48,7 +65,7 @@ export default function UpdatePost() {
         console.log(err);
       }
     }
-    getPostById();
+    if(!Object.keys(post).length) getPostById();
   },[])
 
 // change image 

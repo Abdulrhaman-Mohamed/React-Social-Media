@@ -1,20 +1,49 @@
 
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import PostCard from './PostCard'
 import useInfinityPost from '../hooks/useInfinityPost'
 import useAuth from '../hooks/useAuth';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPostsPaginagtions, loadingPosts } from '../feature/post/postSlice';
 
 export default function () {
   //state
-  const [numPage,setNumPage] = useState(1);
-
-  
-  const{
+  const {
     posts,
     loading,
     error,
-    hasMore
-  }= useInfinityPost(numPage)
+    hasMore,
+    pages
+  }= useSelector(state => state.post);
+
+  const [numPage,setNumPage] = useState(pages[pages.length-1] || 1);
+
+  const dispatch = useDispatch();
+
+
+  useEffect(()=>{
+    // console.log(numPage);
+    if(pages.includes(numPage)) return
+    // dispatch for loading while scrolling
+    dispatch(loadingPosts(true));
+    // dispatch for fetching data while pagenum is change and not imcludeed in pages state
+    const dispatchingPromise = dispatch(fetchPostsPaginagtions(numPage));
+
+    // console.log({
+    //   posts,
+    //   loading,
+    //   error,
+    //   hasMore,
+    //   pages
+    // });
+
+    return ()=> dispatchingPromise.abort()
+  },[numPage])
+
+  console.log(posts);
+
+  
+
 
   const{getFromLocalStorage} = useAuth();
 

@@ -24,12 +24,16 @@ import { Link ,useNavigate } from "react-router-dom";
 import { timeAgo } from "../utils/TimeAgo";
 
 import { api } from "../api/axios";
+import { useDispatch } from "react-redux";
+import { setSelectedPost } from "../feature/post/selectedPostSlice";
 
 
 
 
 const PostCard = forwardRef(({ post, userId }, ref) => {
   const [openDialog, setOpenDialog] = useState(false);
+
+  const dispatch = useDispatch();
   // console.log(post);
   // console.log({postUSer:post.user , user:userId  });
 
@@ -76,7 +80,7 @@ const PostCard = forwardRef(({ post, userId }, ref) => {
             </MenuHandler>
             <MenuList>
               <Link to={`/update-post/${post._id}`}>
-                <MenuItem>Edit</MenuItem>
+                <MenuItem onClick={()=> dispatch(setSelectedPost(post))} >Edit</MenuItem>
               </Link>
               <MenuItem onClick={dialogHandler}>Delete</MenuItem>
             </MenuList>
