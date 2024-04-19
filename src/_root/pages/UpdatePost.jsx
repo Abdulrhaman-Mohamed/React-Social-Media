@@ -18,6 +18,7 @@ import {
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { UplaodFile } from '../../utils/UplaodFilesFireBase';
 import { useDispatch, useSelector } from 'react-redux';
+import { addPost, updatePostReducer } from '../../feature/post/postSlice';
 
 export default function UpdatePost() {
   // States
@@ -25,6 +26,10 @@ export default function UpdatePost() {
   const[post , setPost] =useState(postRedux);
   const [file, setFile] = useState(null);
   const[loading , setLoading] = useState(false);
+
+
+  //dispatch
+  const dispatch = useDispatch();
 
 
 
@@ -59,7 +64,6 @@ export default function UpdatePost() {
     const getPostById= async()=>{
       try{
         const post_ = (await api.get(`/post/${id}`)).data
-        // console.log(post_);
         setPost({...post , ...post_.post})
       }catch(err){
         console.log(err);
@@ -109,14 +113,17 @@ export default function UpdatePost() {
           setLoading(true)
           try {
             let updated;
-            if(UploadedImageURL){
-               updated = await api.put(`post/${post._id}`,{...post,payload:UploadedImageURL})
-            }else{
-              updated =await api.put(`post/${post._id}`,post)
-            }
+
+            if(UploadedImageURL) updated = await api.put(`post/${post._id}`,{...post,payload:UploadedImageURL})
+            else updated =await api.put(`post/${post._id}`,post)
 
             setLoading(false);
-            if(updated.status === 200) navigate("/")
+            if(updated.status === 200){
+              if(UploadedImageURL) dispatch(updatePostReducer({...post , payload:UploadedImageURL}))
+              else dispatch(updatePostReducer(post))
+          
+              navigate("/")
+            } 
 
           } catch (error) {
             setLoading(false);

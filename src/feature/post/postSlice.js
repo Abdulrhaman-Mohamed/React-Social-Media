@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import useInfinityPost from "../../hooks/useInfinityPost";
 import { getPostsPage } from "../../api/axios";
+import { update } from "firebase/database";
 
     const initState = {
         posts:[],
@@ -27,19 +28,27 @@ const postSlice = createSlice({
     name: "post",
     initialState: initState,
     reducers: {
-        add_update_Post: (state, action) => {
+        addPost: (state, action) => {
             state.posts = [action.payload, ...state.posts];
         },
-        deletePost: (state, action) => {
-            state.posts = state.posts.filter((post) => post.id !== action.payload);
+        deletePostReducer: (state, action) => {
+            state.posts = state.posts.filter((post) => post._id !== action.payload);
         },
         loadingPosts: (state, action) => {
             state.loading = action.payload;
         },
+        updatePostReducer:(state , action)=>{
+            state.posts= state.posts.filter((post)=>{
+                
+                if(post._id === action.payload._id){
+                    return action.payload
+                }
+            })
+        }
     },
     extraReducers:(builder)=>{
         builder.addCase(fetchPostsPaginagtions.fulfilled, (state, action)=>{
-            state.posts.push(...action.payload.posts) 
+            state.posts.push(...action.payload.posts.filter((post)=>!state.posts.includes(post))) 
             state.pages.push(action.payload.pageNum)
             state.loading = action.payload.loading
             state.error = action.payload.error
@@ -49,6 +58,6 @@ const postSlice = createSlice({
 });
 
 
-export const { add_update_Post, deletePost , loadingPosts  } = postSlice.actions;
+export const { addPost, deletePostReducer , loadingPosts , updatePostReducer  } = postSlice.actions;
 export default postSlice.reducer;
 

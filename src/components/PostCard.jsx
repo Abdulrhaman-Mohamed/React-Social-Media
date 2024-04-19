@@ -23,9 +23,12 @@ import { Link ,useNavigate } from "react-router-dom";
 
 import { timeAgo } from "../utils/TimeAgo";
 
+import { toast } from 'react-toastify';
+
 import { api } from "../api/axios";
 import { useDispatch } from "react-redux";
 import { setSelectedPost } from "../feature/post/selectedPostSlice";
+import { deletePostReducer } from "../feature/post/postSlice";
 
 
 
@@ -49,10 +52,15 @@ const PostCard = forwardRef(({ post, userId }, ref) => {
     // console.log(id);
     try {
       const delete_ = await api.delete(`post/${id}`);
-      if(delete_.status === 200) navigate(0);
+      if(delete_.status === 200){
+        dispatch(deletePostReducer(id))
+        toast.success("Post Deleted Successfully")
+      } 
     } catch (error) {
+      toast.error("Error While Deleting Post")
       console.log(error);
     }
+    setOpenDialog(!openDialog);
   }
 
   const content = (
@@ -139,6 +147,7 @@ const PostCard = forwardRef(({ post, userId }, ref) => {
           {content}
         </div>
       )}
+      
     </>
   );
 });
