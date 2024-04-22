@@ -138,12 +138,12 @@ const PostCard = forwardRef(({ post, userId }, ref) => {
       {ref ? (
         <div
           ref={ref}
-          className="w-full md:w-[450px] flex flex-col gap-2 p-4  rounded-lg shadow-md shadow-blue-gray-900/20"
+          className="w-full lg:w-[450px] flex flex-col gap-2 p-4  rounded-lg shadow-md shadow-blue-gray-900/20"
         >
           {content}
         </div>
       ) : (
-        <div className="w-full md:w-[450px] flex flex-col gap-2 p-4  rounded-lg shadow-md shadow-blue-gray-900/20">
+        <div className="w-full lg:w-[450px] flex flex-col gap-2 p-4  rounded-lg shadow-md shadow-blue-gray-900/20">
           {content}
         </div>
       )}

@@ -32,7 +32,7 @@ export default function CreatePost() {
   const dispatch = useDispatch();
 
   //userData
-  const userData = getFromLocalStorage();
+  // const userData = getFromLocalStorage();
 
   // React Hook Form
   const {
