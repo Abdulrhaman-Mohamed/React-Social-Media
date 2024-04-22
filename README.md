@@ -13,9 +13,9 @@
 
 <img src="https://firebasestorage.googleapis.com/v0/b/react-social-8a3b7.appspot.com/o/Project-images%2FScreenshot_22-4-2024_1430_social-media-demo-project.netlify.app.jpeg?alt=media&amp;token=dde7ee19-91c1-4cac-bc7a-a04dfc64f37f" alt="project-screenshot"  height="400/">
 
-<img src="https://firebasestorage.googleapis.com/v0/b/react-social-8a3b7.appspot.com/o/Project-images%2FScreenshot_22-4-2024_1479_social-media-demo-project.netlify.app.jpeg?alt=media&amp;token=8c58b6c5-38a5-4a33-9cbe-b04e845730b9" alt="project-screenshot" width="77%"  height="400/">
+<img src="https://firebasestorage.googleapis.com/v0/b/react-social-8a3b7.appspot.com/o/Project-images%2FScreenshot_22-4-2024_1479_social-media-demo-project.netlify.app.jpeg?alt=media&amp;token=8c58b6c5-38a5-4a33-9cbe-b04e845730b9" alt="project-screenshot"   height="400/">
 
-<img src="https://firebasestorage.googleapis.com/v0/b/react-social-8a3b7.appspot.com/o/Project-images%2FScreenshot_22-4-2024_15513_social-media-demo-project.netlify.app.jpeg?alt=media&amp;token=32ef75fd-270c-4fa8-85a5-a7af54233f93" alt="project-screenshot" width="77%"  height="400/">
+<img src="https://firebasestorage.googleapis.com/v0/b/react-social-8a3b7.appspot.com/o/Project-images%2FScreenshot_22-4-2024_15513_social-media-demo-project.netlify.app.jpeg?alt=media&amp;token=32ef75fd-270c-4fa8-85a5-a7af54233f93" alt="project-screenshot"   height="400/">
 
 <img src="https://firebasestorage.googleapis.com/v0/b/react-social-8a3b7.appspot.com/o/Project-images%2FScreenshot_22-4-2024_14836_social-media-demo-project.netlify.app.jpeg?alt=media&amp;token=608cf8bf-b8d9-475a-8388-a5fff2c45726" alt="project-screenshot"  height="400/">
 
