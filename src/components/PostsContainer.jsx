@@ -11,6 +11,7 @@ import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function () {
+  
   //state
   const { posts, loading, error, hasMore, pages } = useSelector(
     (state) => state.post

@@ -6,7 +6,8 @@ import ProfilePostsContainer from '../../components/ProfilePostsContainer';
 import { useParams } from 'react-router-dom';
 
 export default function ProfileUser() {
-   const params = useParams();
+   const {id} = useParams();
+   
   return (
     <main className=' relative'>
         {/* Middle side */}
@@ -18,7 +19,7 @@ export default function ProfileUser() {
             <ProfileDataDetails />
         </div>
         <div className=' lg:w-[600px] flex flex-col gap-5 mx-auto    order-3'>
-        <ProfilePostsContainer  />
+        <ProfilePostsContainer userId={id} />
         </div>
     </main>
   )

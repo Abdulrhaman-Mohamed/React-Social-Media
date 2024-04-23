@@ -119,6 +119,7 @@ export default function UpdatePost() {
 
             setLoading(false);
             if(updated.status === 200){
+              
               if(UploadedImageURL) dispatch(updatePostReducer({...post , payload:UploadedImageURL}))
               else dispatch(updatePostReducer(post))
           

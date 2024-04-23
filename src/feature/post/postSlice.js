@@ -38,12 +38,11 @@ const postSlice = createSlice({
             state.loading = action.payload;
         },
         updatePostReducer:(state , action)=>{
-            state.posts= state.posts.filter((post)=>{
-                
-                if(post._id === action.payload._id){
-                    return action.payload
-                }
-            })
+            
+            const postIndex = state.posts.findIndex((post) => post._id === action.payload._id);
+            if (postIndex !== -1) {
+              state.posts[postIndex] = action.payload; 
+            }
         }
     },
     extraReducers:(builder)=>{

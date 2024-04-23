@@ -1,13 +1,15 @@
+import React, { useEffect } from 'react'
+
 import { useInfiniteQuery } from '@tanstack/react-query'
-import React from 'react'
+import { useInView } from 'react-intersection-observer';
+
 import { api } from '../api/axios'
 import PostCard from './PostCard'
-import useAuth from '../hooks/useAuth'
 
-export default function ProfilePostsContainer({userId = "661e60e01557b6b4ae2a0802"}) {
+export default function ProfilePostsContainer({userId = ""}) {
 
-  const { getFromLocalStorage } = useAuth();
-  const userData = getFromLocalStorage();
+  const { ref, inView } = useInView();
+
 
   const fetchProfilePosts =async ({pageParam}) => {
     const response = await api.get(`/post/userposts?user=${userId}&page=${pageParam}`)
@@ -21,6 +23,11 @@ export default function ProfilePostsContainer({userId = "661e60e01557b6b4ae2a080
         getNextPageParam: (lastPage,allpage) => lastPage.length? allpage.length + 1 : undefined
     });
 
+    useEffect(() => {
+      
+        if(inView && hasNextPage) fetchNextPage()
+    }, [inView , hasNextPage , fetchNextPage ])
+    
 
     if(isLoading) return <div>Loading...</div>
     if(error) return <div>Error...</div>
@@ -31,11 +38,22 @@ export default function ProfilePostsContainer({userId = "661e60e01557b6b4ae2a080
     {
       data.pages.map((group,index) => (
         <div key={index}>
-          {group.map((post) => (
-            <React.Fragment key={post._id}>
-            <PostCard post={post} userId={userData._id} />
-            </React.Fragment>
-          ))}
+          {group.map((post , index) => {
+            if(index + 1 === group.length ){
+              return (
+                <div ref={ref} key={post._id}>
+                  
+                <PostCard post={post} userId={userId} />
+              </div>
+              )
+            }
+            return(
+              <React.Fragment key={post._id}>
+              <PostCard post={post} userId={userId} />
+              </React.Fragment>
+            )
+
+          })}
         </div>
       ))
     }
