@@ -12,6 +12,9 @@ import RequiredAuth from "./hoc/RequiredAuth";
 import ProfileUser from "./_root/pages/ProfileUser";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./config/ReactQuery";
+import EditProfile from "./_root/pages/_edit-profile/EditProfileLayout";
+import Account from "./_root/pages/_edit-profile/Account";
+import Personal from "./_root/pages/_edit-profile/Personal";
 
 function App() {
   return (
@@ -53,13 +56,44 @@ function App() {
             <Route
               path="/profile-user/:id"
               element={
-                <QueryClientProvider client={queryClient} >
-                <RequiredAuth>
-                  <ProfileUser />
-                </RequiredAuth>
+                <QueryClientProvider client={queryClient}>
+                  <RequiredAuth>
+                    <ProfileUser />
+                  </RequiredAuth>
                 </QueryClientProvider>
               }
             />
+            {/* <Route
+              path="/profile-edit/:id"
+              element={
+                <QueryClientProvider client={queryClient}>
+                  <RequiredAuth>
+                    <Route element={<EditProfile />}>
+
+                    </Route>
+                  </RequiredAuth>
+                </QueryClientProvider>
+              }
+            /> */}
+
+            <Route element={<EditProfile />} path="/profile-edit/">
+              <Route
+                path="account"
+                element={
+                  <QueryClientProvider client={queryClient}>
+                    <Account />
+                  </QueryClientProvider>
+                }
+              />
+              <Route
+                path="personal"
+                element={
+                  <QueryClientProvider client={queryClient}>
+                    <Personal />
+                  </QueryClientProvider>
+                }
+              />
+            </Route>
           </Route>
         </Routes>
       </main>

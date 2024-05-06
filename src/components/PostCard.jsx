@@ -42,7 +42,7 @@ const PostCard = forwardRef(({ post, userId }, ref) => {
 
   // console.log(Date.parse(post.createdDate));
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
 
   //hander Open Dialog
@@ -67,10 +67,12 @@ const PostCard = forwardRef(({ post, userId }, ref) => {
     <>
       <div className=" flex justify-between items-center">
         <div className=" flex gap-2">
+          <Link to={`/profile-user/${post.user._id}`}>
           <Avatar
             src="https://docs.material-tailwind.com/img/face-2.jpg"
             alt="avatar"
           />
+          </Link>
           <Typography variant="h6" as={"p"}>
             {post.user.username}
             {/* <span className=" block text-gray text-sm">{timeAgo.format(Date.now() - (Date.parse(post.createdDate)/1000)/1000 ) }</span> */}
@@ -138,12 +140,12 @@ const PostCard = forwardRef(({ post, userId }, ref) => {
       {ref ? (
         <div
           ref={ref}
-          className="w-full lg:w-[450px] flex flex-col gap-2 p-4  rounded-lg shadow-md shadow-blue-gray-900/20"
+          className="w-[98vw] lg:w-[450px] flex flex-col gap-2 p-4  rounded-lg shadow-md shadow-blue-gray-900/20"
         >
           {content}
         </div>
       ) : (
-        <div className="w-full lg:w-[450px] flex flex-col gap-2 p-4  rounded-lg shadow-md shadow-blue-gray-900/20">
+        <div className="w-[98vw] lg:w-[450px] flex flex-col gap-2 p-4  rounded-lg shadow-md shadow-blue-gray-900/20">
           {content}
         </div>
       )}
