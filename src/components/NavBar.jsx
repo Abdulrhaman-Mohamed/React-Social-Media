@@ -88,7 +88,7 @@ function ProfileMenu() {
               className={`flex items-center gap-2 rounded ${"hover:bg-secondary/10 hover:text-secondary focus:bg-secondary/10 active:bg-secondary/10  "}`}
             >
               {key === 0 ? (
-                <Link to={`/profile-user/${getFromLocalStorage()._id}`} className=" flex items-center gap-2">
+                <Link to={`/profile-user/${getFromLocalStorage()?._id}`} className=" flex items-center gap-2">
                   {React.createElement(icon, {
                     className: `h-4 w-4 ${
                       key === profileMenuItems.length - 1
